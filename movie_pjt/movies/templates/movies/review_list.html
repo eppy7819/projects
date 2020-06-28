@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load bootstrap_pagination %}
+{% bootstrap_paginate page_obj %}
+
+{% block additional_styles %}
+<style>
+  body{
+
+    position: relative;
+    z-index:1;
+  }
+  body::after {
+    width:100%;
+    min-height:100%;
+    content:"";
+    background-image:url('/static/images/community.jpg');
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:-1;
+    opacity: 0.5;
+  }
+  .page-item.active .page-link {
+      background-color: gray;
+      border-color: gray;
+  }
+
+  .page-link {
+      color: black;
+  }
+
+  a {
+      color: white;
+      font-size: 20.8px;
+  }
+
+  li span {
+    line-height: 0.75;
+  }
+
+</style>
+{% endblock %}
+
+
+{% block content %}
+  <div class="container justify-content-center" style="margin-top: 70px">
+    <h3>오늘영화 유저들이 사랑한</h3>
+    <h1 style="font-weight: bold;">오늘영화</h1>
+    <br>
+    <div class="nav justify-content-end">
+      <!-- <a href="{# url 'movies:review_create' %}" class="btn btn-outline-primary">새 글 쓰기</a> -->
+    </div>
+    <br>
+    <table class="table text-white">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">영화 제목</th>
+          <th scope="col">리뷰 제목</th>
+          <th scope="col">별점</th>
+          <th scope="col">작성자</th>
+          <th scope="col">작성 시간</th>
+          <th scope="col">수정 시간</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for review in page_obj %}
+            <tr>
+              <th scope="row">{{ review.pk }}</th>
+              <td><a class="text-decoration-none" href="{% url 'movies:movie_detail' review.movie.pk %}">{{ review.movie.title }}</a></td>
+              <td><a class="text-decoration-none" href="{% url 'movies:review_detail' review.movie.pk review.pk %}">{{ review.title }}</a></td>
+              <td>{{ review.rank }}</td>
+              <td><a class="text-decoration-none" href="{% url 'accounts:profile' review.user %}">{{ review.user }}</a></td>
+              <td>{{ review.created_at }}</td>
+              <td>{{ review.updated_at }}</td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+    <br>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center text-black">
+        {% bootstrap_paginate page_obj range=10 show_prev_next="false" show_first_last="true" %}
+      </ul>
+    </nav>
+  </div>
+
+{% endblock %}

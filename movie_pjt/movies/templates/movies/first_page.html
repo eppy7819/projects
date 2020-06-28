@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block additional_styles %}
+<style>
+  body{
+    position: relative;
+    z-index:1;
+  }
+  body::after {
+    width:100%;
+    min-height:100%;
+    content:"";
+    background-image:url('/static/images/question.png');
+    background-repeat:no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index:-1;
+    opacity: 0.5;
+  }
+  .modal {
+        text-align: center;
+  }
+ 
+  @media screen and (min-width: 768px) { 
+        .modal:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
+        }
+  }
+ 
+  .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="first-page" style="margin-top: 80px;">
+  <div class="row" style="height:50px;">
+  </div>
+  <div class="row card mt-5 mx-auto p-3" style="width: 50rem; background-color: rgba(3, 3, 3, 0)">
+    <div class="text-left" style="width:600px; margin-left:100px; margin-bottom: 50px; ">
+      {% if request.user.nickname %}
+      <h1 style="font-family: 'Open Sans', sans-serif; font-weight: bold;">{{ request.user.nickname }} 님,</h1>
+      {% else %}
+      <h1 style="font-family: 'Open Sans', sans-serif; font-weight: bold;">{{ request.user.username }} 님,</h1>
+      {% endif %}
+      <h1 style="font-family: 'Open Sans', sans-serif; font-weight: bold;">오늘 기분 어떤가요?</h1><hr>
+      <h4 style="font-family: 'Open Sans', sans-serif;">{{ request.user.username }}님의 '오늘'에 꼭 맞는 영화를 추천해드려요.</h4>
+    </div>
+    <div class="row" style="margin-left:10px;">
+      <button class="btn" data-toggle="modal" data-target="#modal1"><img src="{% static 'images/emo1.png' %}" style="height:150px; width:auto;"></button>
+      <button class="btn" data-toggle="modal" data-target="#modal2"><img src="{% static 'images/emo2.png' %}" style="height:150px; width:auto;"></button>
+      <button class="btn" data-toggle="modal" data-target="#modal3"><img src="{% static 'images/emo3.png' %}" style="height:150px; width:auto;"></button>
+      <button class="btn" data-toggle="modal" data-target="#modal4"><img src="{% static 'images/emo4.png' %}" style="height:150px; width:auto;"></button>
+      <button class="btn" data-toggle="modal" data-target="#modal5"><img src="{% static 'images/emo5.png' %}" style="height:150px; width:auto;"></button>
+    </div>
+  </div>
+</div>
+
+<!-- 모달 모음 -->
+<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0);">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 1 %}"><img src="{% static 'images/recommendation/emo1-1.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 2 %}"><img src="{% static 'images/recommendation/emo1-2.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0);">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 3 %}"><img src="{% static 'images/recommendation/emo2-1.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 4 %}"><img src="{% static 'images/recommendation/emo2-2.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0);">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 5 %}"><img src="{% static 'images/recommendation/emo3-1.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 6 %}"><img src="{% static 'images/recommendation/emo3-2.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0);">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 7 %}"><img src="{% static 'images/recommendation/emo4-1.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 8 %}"><img src="{% static 'images/recommendation/emo4-2.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0);">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 5 %}"><img src="{% static 'images/recommendation/emo3-1.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 6 %}"><img src="{% static 'images/recommendation/emo3-2.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0);">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 9 %}"><img src="{% static 'images/recommendation/emo5-1.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+          <div class="col-6">
+            <a href="{% url 'movies:emotion' 10 %}"><img src="{% static 'images/recommendation/emo5-2.png' %}" style="height:500px; width:auto;"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock  %}

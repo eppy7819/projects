@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="embed-responsive embed-responsive-21by9" style="z-index: 0;">
+  <iframe class="embed-resposive-item"src="https://www.youtube.com/embed/{{ trailer }}?autohide=0&autoplay=0&controls=0&disablekb=1
+&modestbranding=1&rel=0&showinfo=1" frameborder="1" allowfullscreen scrolling="auto"></iframe>
+</div>
+<hr>
+<div class="recommendation" id="home">
+  <div>
+    {% if user.is_active %}
+    <h1 id="home">{{ request.user.username }}님을 위한 추천 영화</h1>
+    {% else %}
+    <h1 id="home">평점이 높은 영화</h1>
+    {% endif %}
+  </div>
+  <hr>
+  <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="10000">
+        <div class="row box">
+          <div class="card-deck">
+          {% for movie in movies1 %}
+            <div class="card">
+              <a href="{% url 'movies:movie_detail' movie.pk %}"><img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" alt=""></a>
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <div class="row box">
+          <div class="card-deck">
+          {% for movie in movies2 %}
+            <div class="card">
+              <a href="{% url 'movies:movie_detail' movie.pk %}"><img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" alt=""></a>
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row box">
+          <div class="card-deck">
+          {% for movie in movies3 %}
+            <div class="card">
+              <a href="{% url 'movies:movie_detail' movie.pk %}"><img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" alt=""></a>
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>  
+</div>
+
+<div class="recommendation" id="home">
+  <div>
+    <h1 id="home">리뷰가 많은 영화</h1>
+  </div>
+  <hr>
+  <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-interval="10000">
+        <div class="row box">
+          <div class="card-deck">
+          {% for movie in movies4 %}
+            <div class="card">
+              <a href="{% url 'movies:movie_detail' movie.pk %}"><img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" alt=""></a>
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item" data-interval="2000">
+        <div class="row box">
+          <div class="card-deck">
+          {% for movie in movies5 %}
+            <div class="card">
+              <a href="{% url 'movies:movie_detail' movie.pk %}"><img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" alt=""></a>
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row box">
+          <div class="card-deck">
+          {% for movie in movies6 %}
+            <div class="card">
+              <a href="{% url 'movies:movie_detail' movie.pk %}"><img class="card-img-top" src="https://image.tmdb.org/t/p/original/{{ movie.backdrop_path }}" alt=""></a>
+              <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>  
+</div>
+{% endblock %}

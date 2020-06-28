@@ -1,0 +1,117 @@
+[
+	{
+		"model": "movies.emotion",
+		"pk": 1,
+		"fields": {
+            "name": "즐거워요",
+            "question": "오늘 하루를 웃음으로 꽉 채워볼까요?",
+            "genres": [
+                35,
+                10751
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 2,
+		"fields": {
+            "name": "즐거워요",
+            "question": "액션 히어로들과 신나게 부셔볼까요?",
+            "genres": [
+                28,
+                878
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 3,
+		"fields": {
+            "name": "심심해요",
+            "question": "손에 땀을 쥐는 하루를 보내볼까요?",
+            "genres": [
+                53,
+                27
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 4,
+		"fields": {
+            "name": "심심해요",
+            "question": "오늘은 내가 탐정! 게임을 시작하지",
+            "genres": [
+                80,
+                9648
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 5,
+		"fields": {
+            "name": "센치해요",
+            "question": "잔잔한 하루를 보내고 싶어요",
+            "genres": [
+                10402,
+                99
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 6,
+		"fields": {
+            "name": "센치해요",
+            "question": "걱정은 잠시 덮어두고 오늘은 웃어요",
+            "genres": [
+                35
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 7,
+		"fields": {
+            "name": "외로워요",
+            "question": "사랑에 빠지고 싶어요",
+            "genres": [
+                10749
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 8,
+		"fields": {
+            "name": "외로워요",
+            "question": "잊지말아요! 당신의 옆엔 좋은 사람들이 있어요",
+            "genres": [
+                10751
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 9,
+		"fields": {
+            "name": "몽글몽글",
+            "question": "동심의 세계로 돌아가고 싶어요",
+            "genres": [
+                16
+            ]
+		}
+    },
+    {
+		"model": "movies.emotion",
+		"pk": 10,
+		"fields": {
+            "name": "몽글몽글",
+            "question": "오늘은 왠지 특별해지고 싶어요",
+            "genres": [
+                14
+            ]
+		}
+    }
+]

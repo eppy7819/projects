@@ -1,0 +1,172 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘영화</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link href="{% static 'movies/css/movie_list.css' %}" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <style>
+    @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+.nanummyeongjo * {
+  font-family: 'Nanum Myeongjo', serif;
+  }
+
+  /** 이하는 공통 **/
+  .normal {
+  font-style: normal;
+  }
+
+  .w250 {
+  font-weight: 250;
+  }
+
+  .w300 {
+  font-weight: 300;
+  }
+
+  .w350 {
+  font-weight: 350;
+  }
+
+  .w400 {
+  font-weight: 400;
+  }
+
+  .w500 {
+  font-weight: 500;
+  }
+
+  .w600 {
+  font-weight: 600;
+  }
+
+  .w700 {
+  font-weight: 700;
+  }
+
+  .w800 {
+  font-weight: 800;
+  }
+
+  .w900 {
+  font-weight: 900;
+  }
+
+  li span {
+  line-height: 1.8;
+  font-size: 1.3em;
+  }
+    :root {
+  --primary: #141414;
+  --light: #F3F3F3;
+  --dark:	#686868;
+    }
+    .wrapper {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      position: relative;
+    }  
+    body {
+      width: 100%;
+      min-height: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: var(--primary);
+      color: var(--light);
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+      line-height: 1.4;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      display: grid;  
+      grid-gap: 5px;
+      background-color: var(--primary);
+      width: 100%;
+      height: 80px;
+      margin-bottom: 0px;
+    }
+
+    .nav a:hover {
+      color: var(--dark);
+    }
+  </style>
+  {% block additional_styles %}
+  {% endblock %}
+</head>
+<body class="nanummyeongjo">
+  <nav class="navbar navbar-expand-lg navbar-light p-0 fixed-top" style="background-color: var(--primary);">
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a id="logo" href="{% url 'movies:movie_list' %}"><img src="{% static 'images/logo2.png' %}" style="height:60px; width:180px"></a>
+      <ul class="navbar-nav mr-auto ml-3">
+        <li class="nav-item active">
+          <a class="nav-link mx-2" href="{% url 'movies:movie_list' %}" style="color:white">홈</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="{% url 'movies:recent_movie' %}" style="color:white">최신 영화</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="{% url 'movies:review_list' %}" style="color:white">커뮤니티</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" href="{% url 'movies:emotion_remove' %}" style="color:white">추천 다시받기</a>
+        </li>
+        
+      </ul>
+      <ul class="navbar-nav">
+        {% if user.is_active %}
+        <li class="nav-item">
+          {% if request.user.nickname %}
+          <a class="nav-link" href="{% url 'accounts:profile' request.user %}" style="color:white">
+            {{ request.user.nickname }}님 안녕하세요!
+          </a>
+          {% else %}
+          <a class="nav-link" href="{% url 'accounts:profile' request.user %}" style="color:white">
+            {{ request.user.username }}님 안녕하세요!
+          </a>
+          {% endif %}
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" href="{% url 'accounts:logout' %}" style="color:white">로그아웃</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:login' %}" style="color:white">로그인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:signup' %}" style="color:white">회원가입</a>
+        </li>
+        {% endif %}
+      </ul>
+      <form class="form-inline my-2 my-lg-0" action="{% url 'movies:search_result' %}" method="GET">
+        {% csrf_token %}
+        <div class="input-group mx-3">
+            <input type="text" class="form-control mr-sm-2" name='q' type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>
+        </div>
+      </form>
+    </div>
+  </nav>
+  <div class="wrapper" style="margin-top:70px; margin-bottom:200px;">
+    <!-- 메인 -->
+    <div class="main-container p-0" style="margin-top: 70px; min-height:100%;">
+      {% block content %}
+  
+      {% endblock %}
+    </div>
+  </div>
+  {% include 'footer.html' %}
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/67f4e37984.js"></script>
+</body>
+</html>

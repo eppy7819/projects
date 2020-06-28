@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+
+<!-- <hr style="height:20px;> -->
+<div class = "my-3 row" style="margin-top: 10rem; color: white;">
+    <div class="col-1">
+    </div>
+    <div class="col-6" style="margin-top:40px">
+        <!-- <hr style="height: 5px; color:rgb(243, 234, 205);" -->
+        <p style="font-weight: 1000; font-size: 2rem; margin-right: 30rem;">리뷰</p>
+        <a class="btn btn-outline-secondary" href="{% url 'movies:review_list' %}" style="color: white">목록으로 돌아가기</a>
+        <hr style="background-color: white">
+        <h2 sytle="font-weight: bold;">{{ review.title }}</h2>
+        <hr style="background-color: white">
+        <span>작성자: {{ review.user }}님  |  <a href="{% url 'accounts:profile' review.user %}" style="color: white">{{review.user}} 님의 모든 리뷰 보기 ▶</a></span>
+        <span class="float-right">작성일자: {{ review.created_at }}</span>
+        <p style="font-size: 2rem; color: black;">.</p>
+        <span style="font-weight: 1000; font-size: 12pt; color:white; background-color: rgb(128, 128, 128)" class="p-2">리뷰 보기 ▼</span>
+        <p style="font-size: 1pt; color: black;">.</p>
+        <h4>{{ review.content }}</h4>
+        <hr>
+        {% if request.user == review.user %}
+            <a class="btn btn-primary mr-3" href="{% url 'movies:review_update' movie.pk review.pk %}">글 수정</a>
+            <a class="btn btn-danger" href="{% url 'movies:review_delete' movie.pk review.pk %}">글 삭제</a>
+        {% endif %}
+        <a class="btn btn-light float-right" style="color: black; font-weight: 1000" href="{% url 'movies:movie_detail' movie.pk %}">이 영화보러 가기</a>
+        <hr>
+    </div>
+    <div class="col-1">
+    </div>
+    <div class="col-3" style="margin-top:40px">
+        <div class="d-flex justify-content-center">
+        <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" alt="포스터이미지" style="width:100%;">
+        </div>
+    </div>
+    <div class="col-1">
+    </div>
+</div>
+
+<div class = "my-3 row" style="margin-top: 10rem;">
+    <div class="col-1">
+    </div>
+    <div class="col-10" style="margin-top:40px">
+        <p style="color: white; font-weight: 1000; font-size: 2rem; margin-right: 30rem;">댓글 목록</p>
+        {% for comment in comments %}
+            <hr>
+            <span style="font-size: 15pt"><a class="badge badge-dark"  href="{% url 'accounts:profile' comment.user %}">{{ comment.user }}님  </a> {{ comment.content }}</span>
+            <span class="float-right" style="font-size: 1rem">{{ comment.created_at }}</span>
+            {% if request.user == comment.user %}
+            <div style="height:40px;">
+                <form action="{% url 'movies:comment_delete' movie.pk review.pk comment.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button class="badge badge-danger float-right" style="font-weight: 100; font-size: 9pt;">댓글 삭제</button>
+                </form>
+            </div>
+            {% endif %}
+            <hr style="background-color: white;">
+        {% endfor %}
+
+        <form action="{% url 'movies:comment_create' movie.pk review.pk %}" method="POST" class="comment-form">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-11">
+                    {% bootstrap_form form %}
+                </div>
+                <div class="col-1 text-center p-0">
+                    <button class="btn btn-primary px-2" style="margin-top:30px; font-size:15px;">댓글 작성</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-1">
+    </div>
+</div>
+
+
+{% endblock %}

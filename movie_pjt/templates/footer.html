@@ -1,0 +1,64 @@
+{% load static %}
+<style>
+  .top-button{
+    
+  }
+</style>
+<footer class="page-footer font-small mdb-color pt-4">
+
+  <div class="container text-center text-md-left">
+
+    <div class="row text-center text-md-left mt-3 pb-3">
+
+      <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 font-weight-bold">오늘 영화</h5>
+        <p>늘 같은 영화 추천에 지친 당신을 위해</p>
+        <p>오늘의 기분을 고려한 영화 추천 서비스</p>
+      </div>
+
+      <hr class="w-100 clearfix d-md-none">
+
+      <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 font-weight-bold">사이트 링크</h5>
+        <p>
+          <a class="text-white" href="{% url 'movies:movie_list' %}" style="text-decoration: none;">추천 리스트</a>
+        </p>
+        <p>
+          <a class="text-white" href="{% url 'movies:recent_movie' %}" style="text-decoration: none;">최신 영화</a>
+        </p>
+        <p>
+          <a class="text-white" href="{% url 'movies:review_list' %}" style="text-decoration: none;">커뮤니티</a>
+        </p>
+        <p>
+          <a class="text-white" href="{% url 'accounts:profile' request.user %}" style="text-decoration: none;">마이 페이지</a>
+        </p>
+      </div>
+
+      <hr class="w-100 clearfix d-md-none">
+
+      
+      <hr class="w-100 clearfix d-md-none">
+
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+        <h5 class="text-uppercase mb-4 font-weight-bold">연락처</h5>
+        <p>
+          <i class="fa fa-home mr-3"></i>  SSAFY, 서울 3반, 한국</p>
+        <p>
+          <i class="fa fa-envelope mr-3"></i><a href="mailto:ketkat001@naver.com" class="text-white">Q&A@todaymovie.com </a></p>
+        <p>
+          <i class="fa fa-phone mr-3"></i> 010 8060 7364 (강용준)</p>
+        <p>
+          <i class="fa fa-phone mr-3"></i> 010 7141 7084 (홍지선)</p>
+      </div>
+      <div class="col-md-1 col-lg-1 col-xl-1">
+        <i class="top-button" onclick="goTop()"><img src={% static 'images/top_button.png' %} alt="TOP" style="width: 50px;"></i>
+      </div>
+      </div>
+              
+</footer>
+<!-- Footer -->
+<script>
+function goTop(){
+  $('html').scrollTop(0)
+}
+</script>

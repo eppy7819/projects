@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class = "my-3 row" style="margin-top: 10rem; color: white;">
+    <div class="col-2">
+    </div>
+    <div class="col-4" style="margin-top:40px">
+        <p style="font-weight: 1000; font-size: 2rem;">{{ user.nickname }} 님의 오늘영화 &#127909;</p>
+        {% with user_followers=user.followers.all %}
+        {% if request.user in user_followers %}
+        <a type="button" class="btn btn-danger p-1" href="{% url 'accounts:follow' user %}">팔로우 취소</a>
+        {% else %}
+        <a type="button" class="btn btn-warning p-1" href="{% url 'accounts:follow' user %}" style="font-weight: 1000;">
+            팔로우
+        </a>
+        {% endif %}
+        {% endwith %}
+
+        {% if request.user == user %}
+            <a class="btn btn-info float-right p-1" href="{% url 'accounts:profile_update' request.user %}" style="font-weight: 1000;">프로필 수정하기</a>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <!-- <button class="btn btn-secondary">회원 탈퇴</button> -->
+            </form>
+        {% endif %}
+        <hr style="height: 5px;">
+        {% with user_followers=user.followers.all %}
+        <div class="d-flex bd-highlight">
+            <div class="p-2 flex-fill bd-highlight text-center">
+                <p style="font-weight: bold; font-size: 20pt; margin: 0;">{{ user.review_set.all.count }}개</p>
+                게시물
+            </div>
+            <div class="p-2 flex-fill bd-highlight text-center">
+                <p style="font-weight: bold; font-size: 20pt; margin: 0;">{{ user_followers|length }}명</p>
+                팔로워
+            </div>
+            <div class="p-2 flex-fill bd-highlight text-center">
+                <p style="font-weight: bold; font-size: 20pt; margin: 0;">{{ user.followings.count }}명</p>
+                팔로잉
+            </div>
+          </div>
+          <hr style="background-color:white; margin: 1;">
+        {% endwith %}
+        <hr>
+        <div class="p-3 text-dark" style="background-color: rgba(255, 255, 255, 0.9); border-radius: 5px;">
+            <h5><span class="badge badge-secondary">닉네임</span> {{ user.nickname }}</h5>
+            <p>{{ user.introduction }}</p>
+            <p style="font-weight: 1000;">&#11088; 관심있는 장르 </p>
+            <p style="font-weight: 1000;">&#128157; 나의 최애 영화</p>
+        </div>
+        <hr style="height: 5px;">
+    </div>
+    <div class="col-1">
+    </div>
+    <!-- 오른쪽 : 리뷰 보기  -->
+    <div class="col-4" style="margin-top:40px; padding:0;">
+        <h3 style="font-weight: 1000;">이런 영화에 관심이 있어요 &#128149;</h3>
+        <p>{{ user.nickname }}님이 남긴 리뷰를 확인해보세요</p>
+        <hr>
+        <div class="card mb-3 border-black">
+            {% for review in user.review_set.all %}
+            <div class="row no-gutters">
+              <div class="col-2">
+                <img src="https://image.tmdb.org/t/p/w92/{{ review.movie.poster_path }}" class="card-img" alt="포스터 이미지">
+              </div>
+              <div class="col-8">
+                <div class="card-body">
+                  <h5 class="card-title" style="font-weight: 1000;">{{ review.movie.title }}</h5>
+                  <p class="card-text">{{ review.title }}</p>
+                  <a href="{% url 'movies:review_detail' review.movie.pk review.pk %}" class="btn btn-light float-right p-1" style="font-weight: 1000;">
+                    리뷰 읽기 &#128073;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    <div class="col-1">
+    </div>
+  </div>
+
+{% endblock %}
